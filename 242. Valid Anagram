@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+    if (s.length() != t.length()) {
+            return false; // Anagrams must have the same length
+        }
+        
+        unordered_map<char, int> countMap;
+        
+        // Count frequencies of characters in string s
+        for (char ch : s) {
+            countMap[ch]++;
+        }
+        
+        // Decrement frequencies for characters in string t
+        for (char ch : t) {
+            if (countMap.find(ch) == countMap.end()) {
+                return false; // Character not found in s
+            }
+            countMap[ch]--;
+            if (countMap[ch] == 0) {
+                countMap.erase(ch); // Remove entry if count becomes zero
+            }
+        }
+        
+        // If countMap is empty, all characters in s and t match
+        return countMap.empty();    
+    }
+};
